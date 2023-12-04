@@ -5,7 +5,9 @@ const { v4: uuidv4 } = require('uuid');
 
 const userSchema = new mongoose.Schema({
   us_id: { type: String, default: uuidv4 }, // id alanını varsayılan olarak UUID'ye ayarla
+  us_create_date: { type: Date, default: Date.now },
   us_name: String,
+  us_image: String,
   us_age: String,
   us_gender: String
 });

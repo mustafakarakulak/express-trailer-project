@@ -10,7 +10,10 @@ router.get('/allpr', productController.getAllProducts);
 // Ürün ekleme endpoint'i
 router.post('/addpr', productController.addProduct);
 
-// Örnek olarak tek bir ürün getiren endpoint
-router.get('/:id', productController.getProductById);
+// Tek bir ürün getiren endpoint
+router.get('/:pr_id', productController.getProductById);
+
+// Ürün silme endpoint'i
+router.delete('/delpr/:pr_id', productController.delProduct);
 
 module.exports = router;

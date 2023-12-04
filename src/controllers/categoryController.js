@@ -26,9 +26,13 @@ const getCategory = async (req, res) => {
 }
 
 const addCategory = async (req, res) => {
+    if (!req.body.ct_name) {
+        return res.status(400).json({ message: 'Kategori adı boş olamaz!' });
+    }
+
     const category = new Category({
         ct_name: req.body.ct_name,
-        ct_description: req.body.ct_description
+        ct_description: req.body.ct_description || '',
     });
 
     try{
@@ -58,14 +62,17 @@ const updateCategory = async (req, res) => {
 }
 
 const deleteCategory = async (req, res) => {
-    try{
-        await Category.findByIdAndDelete(req.params.id);
-        res.json({ message: "Category deleted" });
-    }
-    catch(err){
+    try {
+        const deletedCategory = await Category.findOneAndDelete({ ct_id: req.params.id });
+        if (!deletedCategory) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+        res.json({ message: "Category deleted", deletedCategory });
+    } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}
+};
+
 
 module.exports = {
     getCategories,

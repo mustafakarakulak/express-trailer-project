@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   pr_name: String,
   pr_stock: String,
   pr_category: Object,
+  pr_image: String,
 });
 
 const Product = mongoose.model('Product', productSchema);
